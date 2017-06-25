@@ -42,6 +42,7 @@ class Header extends Component {
     handleLogout = () => {
         console.log('开始退出..');
         firebase.auth().signOut();
+
     };
 
   render() {

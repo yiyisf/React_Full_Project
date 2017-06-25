@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import config from '../../../comm/config';
+import fb from '../../../comm/config';
 import {
     Table,
     TableBody,
@@ -30,10 +30,8 @@ const styles = {
 
 
 console.log('' + firebase.apps);
-if(firebase.apps.length < 1){
-    firebase.initializeApp(config);
-}
-const db = firebase.database();
+
+const db = fb.database();
 const dbRef = db.ref().child('comm/banks');
 
 class Banks extends Component{
