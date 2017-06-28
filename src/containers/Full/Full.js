@@ -20,7 +20,9 @@ import Tabs from '../../views/Components/Tabs/'
 import FontAwesome from '../../views/Icons/FontAwesome/'
 import SimpleLineIcons from '../../views/Icons/SimpleLineIcons/'
 import Banks from '../../views/Components/Settings/Banks';
+import AllOrders from '../../views/Components/Orders/All';
 import fb from '../../comm/config';
+import OrderDetail from "../../views/Components/Orders/OrderDetail";
 
 const messaging = fb.messaging();
 // if (firebase.apps.length < 1) {
@@ -71,32 +73,46 @@ class Full extends Component {
     }
 
     initMessage() {
-        this.reqPermission();
-        messaging.onMessage(function (payload) {
-            console.log(payload);
-            // If we get a notification while focus on the app
-            if (payload.notification) {
-                let data = {
-                    message: payload.notification.body
-                };
-                // this.snackbar.MaterialSnackbar.showSnackbar(data);
-            }
+        navigator.serviceWorker.register("firebase-messaging-sw.js", {scope: "firebase-cloud-messaging-push-scope"}).then(function (registration) {
+            // const messaging = fb.messaging();
+            messaging.useServiceWorker(registration);
+            Full.saveTokens();
+        }).catch(function (err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
         });
-        messaging.setBackgroundMessageHandler(function(payload) {
-            console.log('[firebase-messaging-sw.js] Received background message ', payload);
-            // Customize notification here
-            const notificationTitle = 'Background Message Title';
-            const notificationOptions = {
-                body: 'Background Message body.',
-                icon: '/firebase-logo.png'
-            };
 
-            // return self.registration.showNotification(notificationTitle,
-            //     notificationOptions);
-        });
+        // this.reqPermission();
+        // messaging.onMessage(function (payload) {
+        //     console.log(payload);
+        //     // If we get a notification while focus on the app
+        //     if (payload.notification) {
+        //         let data = {
+        //             message: payload.notification.body
+        //         };
+        //         // this.snackbar.MaterialSnackbar.showSnackbar(data);
+        //     }
+        // });
+        // messaging.setBackgroundMessageHandler(function(payload) {
+        //     console.log('[firebase-messaging-sw.js] Received background message ', payload);
+        //     // Customize notification here
+        //     const notificationTitle = 'Background Message Title';
+        //     const notificationOptions = {
+        //         body: 'Background Message body.',
+        //         icon: '/firebase-logo.png'
+        //     };
+        //
+        //     // return self.registration.showNotification(notificationTitle,
+        //     //     notificationOptions);
+        // });
     }
 
-    saveToken() {
+    static saveTokens() {
+        console.log('test');
+        this.reqPermission();
+    }
+
+    static saveToken() {
         console.log('开始获取token');
         console.log(messaging.getToken());
         messaging.getToken().then(function (token) {
@@ -113,7 +129,7 @@ class Full extends Component {
     }
 
 
-    reqPermission() {
+    static reqPermission() {
         console.log('......');
         fb.messaging().requestPermission().then(()=>{
             this.saveToken();
@@ -121,8 +137,6 @@ class Full extends Component {
             console.log(e)
         })
     }
-
-
 
     // requestPermission() {
     //     console.log('Requesting permission...');
@@ -165,6 +179,8 @@ class Full extends Component {
                                 <Route path="/widgets" name="Widgets" component={Widgets}/>
                                 <Route path="/charts" name="Charts" component={Charts}/>
                                 <Route path="/settngs/banks" name="Banks" component={Banks}/>
+                                <Route path="/orders/all" name="Orders" component={AllOrders}/>
+                                <Route path="/orderdetail/:id" name="detail" component={OrderDetail}/>
                                 <Redirect from="/" to="/dashboard"/>
                             </Switch>
                         </div>

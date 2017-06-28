@@ -96,6 +96,17 @@ class Sidebar extends Component {
             </li>
             <li className="divider"></li>
             <li className="nav-title">
+              订单
+            </li>
+            <li className="nav-item nav-dropdown">
+              <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="fa fa-gear"></i> 订单管理</a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <NavLink to={'/orders/all'} className="nav-link" activeClassName="active"><i className="fa fa-bank"></i> 订单列表</NavLink>
+                </li>
+              </ul>
+            </li>
+            <li className="nav-title">
               参数设置
             </li>
             <li className="nav-item nav-dropdown">

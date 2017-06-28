@@ -61,8 +61,6 @@ injectTapEventPlugin();
 //     )}/>
 // );
 
-
-
 ReactDOM.render((
     <MuiThemeProvider muiTheme={muiTheme}>
         <HashRouter history={history}>
