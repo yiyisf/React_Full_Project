@@ -113,7 +113,7 @@ class Sidebar extends Component {
               <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="fa fa-gear"></i> 参数</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
-                  <NavLink to={'/settngs/banks'} className="nav-link" activeClassName="active"><i className="fa fa-bank"></i> 银行参数</NavLink>
+                  <NavLink to={'/settings/banks'} className="nav-link" activeClassName="active"><i className="fa fa-bank"></i> 银行参数</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/register'} className="nav-link" activeClassName="active"><i className="icon-star"></i> 城市参数</NavLink>

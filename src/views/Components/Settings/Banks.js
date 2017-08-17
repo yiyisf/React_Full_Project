@@ -57,12 +57,14 @@ class Banks extends Component {
         editBankName: '',
         editBankStatus: "null",
         editBankLogo: '',
+        delRec: false
     };
 
     handleToggle = (event, toggled) => {
         this.setState({
             [event.target.name]: toggled,
         });
+
     };
 
     handleChange = (event) => {
@@ -74,6 +76,7 @@ class Banks extends Component {
             editBankName: '',
             editBankStatus: "null",
             open: true,
+            delRec: false
         });
     };
 
@@ -86,10 +89,27 @@ class Banks extends Component {
     };
 
     handleSubmit = () => {
-        this.setState({open: false});
+        console.log("delRec? " + this.state.delRec);
+        console.log("bankStatus:" + this.state.editBankStatus);
+        console.log("is true: " + (this.state.editBankStatus === 'true'));
+        if(!this.state.delRec){
+            let  status = (this.state.editBankStatus === 'true');
+            // if(this.state.editBankStatus === 'true') {
+            //     let status = true;
+            // }
+            dbRef.child(this.state.editBankName).set({
+                "name": this.state.editBankName,
+                "status": status
+            }).then(()=>{this.setState({open: false});}).catch((e)=>{
+                this.setState({alertMessage: e.message, alertOpen: true});
+            })
+        }else {
+            this.setState({open: false});
+        }
     };
 
     handleAlertClose = () => {
+
         this.setState({alertOpen: false, alertMessage:''});
     };
 
@@ -215,6 +235,7 @@ class Banks extends Component {
                 editBankStatus: this.state.banks[selectIndex].status,
                 editBankLogo: this.state.banks[selectIndex].logo,
                 open: true,
+                delRec: false
             });
         };
 

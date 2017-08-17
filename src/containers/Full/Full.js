@@ -178,7 +178,7 @@ class Full extends Component {
                                        component={SimpleLineIcons}/>
                                 <Route path="/widgets" name="Widgets" component={Widgets}/>
                                 <Route path="/charts" name="Charts" component={Charts}/>
-                                <Route path="/settngs/banks" name="Banks" component={Banks}/>
+                                <Route path="/settings/banks" name="Banks" component={Banks}/>
                                 <Route path="/orders/all" name="Orders" component={AllOrders}/>
                                 <Route path="/orderdetail/:id" name="detail" component={OrderDetail}/>
                                 <Redirect from="/" to="/dashboard"/>

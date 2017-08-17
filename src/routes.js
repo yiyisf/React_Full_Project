@@ -15,8 +15,8 @@ const routes = {
     '/icons/font-awesome': 'Font Awesome',
     '/icons/simple-line-icons': 'Simple Line Icons',
     '/widgets': 'Widgets',
-    '/settngs': '设置',
-    '/settngs/banks': '银行列表',
+    '/settings': '设置',
+    '/settings/banks': '银行列表',
     '/orders':'订单管理',
     '/orders/all':'订单列表',
     '/orderdetail':'订单详情'
