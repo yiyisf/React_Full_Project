@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
 import fb from '../../../comm/config';
-import { FlatButton, Dialog } from 'material-ui'
+import { FlatButton, Dialog } from 'material-ui';
+import {withRouter} from "react-router-dom";
+
 
 console.log('login:' + fb.auth().currentUser);
 // firebase.apps.forEach(function (app) {
@@ -82,8 +84,17 @@ class Login extends Component {
 
 
     handleLogin = () => {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+
+        if(!email || !password){
+            this.setState({
+                alertOpen: true,
+                alertMessage: "請輸入用戶名和密碼！"
+            });
+            return;
+        }
+
         console.log('开始登录' + email);
         // firebase.auth().signInAnonymously().catch(function (error) {
         //     console.log(error.code);
@@ -104,6 +115,10 @@ class Login extends Component {
 
     handleAlertClose = () => {
         this.setState({alertOpen: false, alertMessage:''});
+    };
+
+    handleRegister = () => {
+        this.props.history.push('/register');
     };
 
     render() {
@@ -172,7 +187,7 @@ class Login extends Component {
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                                     eiusmod
                                                     tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                <button type="button" className="btn btn-primary active mt-3">马上注册!
+                                                <button type="button" className="btn btn-primary active mt-3" onClick={this.handleRegister}>马上注册!
                                                 </button>
                                             </div>
                                         </div>
@@ -197,4 +212,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

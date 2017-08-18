@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 // import FakeAuth from '../../comm/FakeAuth';
 import {withRouter} from "react-router-dom";
 // import { BrowserRouter as router } from 'react-router-dom';
-import history from '../../comm/history';
+// import history from '../../comm/history';
 
 
 class Header extends Component {
