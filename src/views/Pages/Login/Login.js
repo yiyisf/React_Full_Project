@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
 import fb from '../../../comm/config';
+import { FlatButton, Dialog } from 'material-ui'
 
 console.log('login:' + fb.auth().currentUser);
 // firebase.apps.forEach(function (app) {
@@ -17,7 +18,9 @@ class Login extends Component {
 
     state = {
         redirectToReferrer: false,
-        already: false
+        already: false,
+        alertMessage: "",
+        alertOpen: false
     };
 
     componentDidMount() {
@@ -86,10 +89,21 @@ class Login extends Component {
         //     console.log(error.code);
         //     console.log(error.message);
         // });
+        this.setState({
+            alertOpen: true,
+            alertMessage: "正在登陆..."
+        });
         fb.auth().signInWithEmailAndPassword(email, password).catch((e) => {
-            console.error(e.message)
+            // console.error(e.message);
+            this.setState({
+                alertMessage: e.message
+            });
         });
         // this.setState({redirectToReferrer: true});
+    };
+
+    handleAlertClose = () => {
+        this.setState({alertOpen: false, alertMessage:''});
     };
 
     render() {
@@ -98,6 +112,10 @@ class Login extends Component {
         // }else {
         //     this.setState({ redirectToReferrer: false })
         // }
+
+        const alertActions = [
+
+        ];
 
         const {from} = this.props.location.state || {from: {pathname: '/'}};
         const {redirectToReferrer, already} = this.state;
@@ -129,7 +147,7 @@ class Login extends Component {
                                                 <input id="email" type="text" className="form-control"
                                                        placeholder="邮箱地址"/>
                                             </div>
-                                            <div className="input-group mb-4">
+                                            <div className="input-group mb-4" id="passDiv">
                                                 <span className="input-group-addon"><i className="icon-lock"></i></span>
                                                 <input id="password" type="password" className="form-control"
                                                        placeholder="密码"/>
@@ -162,6 +180,16 @@ class Login extends Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <Dialog
+                            actions={[]}
+                            modal={false}
+                            open={this.state.alertOpen}
+                            onRequestClose={this.handleAlertClose}
+                        >
+                            {this.state.alertMessage}
+                        </Dialog>
                     </div>
                 </div>
             );
