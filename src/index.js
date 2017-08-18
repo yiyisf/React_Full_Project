@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Redirect, Route, Switch} from 'react-router-dom'
-import {createBrowserHistory} from 'history';
+import {HashRouter, Route, Switch} from 'react-router-dom'
+import history from './comm/history';
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import {lightBaseTheme} from "material-ui/styles/index";
@@ -18,8 +18,6 @@ import Page500 from './views/Pages/Page500/'
 import PrivateRoute from "./comm/PrivateRoute";
 
 console.log('index页面');
-const history = createBrowserHistory();
-
 const muiTheme = getMuiTheme(lightBaseTheme);
 injectTapEventPlugin();
 

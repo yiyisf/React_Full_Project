@@ -1,11 +1,8 @@
 /**
- * Created by liuzhe on 2017/6/24.
+ * Created by zgx on 2017/8/18.
  */
-
-import React, {Component} from 'react';
-import {Redirect, Route} from "react-router-dom";
-// import FakeAuth from './FakeAuth';
 import fb from './config';
+import * as firebase from 'firebase';
 
 const FakeAuth = {
     isAuthenticated: false,
@@ -32,20 +29,5 @@ fb.auth().onAuthStateChanged(function (user) {
 });
 
 
-console.log(!!(fb.auth().currentUser));
-const PrivateRoute = ({component: Component, ...rest}) => (
-    <Route {...rest} render={props => (
-        FakeAuth.isAuthenticated ? (
-            <Component {...props}/>
-        ) : (
-            <Redirect to={{
-                pathname: '/login',
-                state: {from: props.location}
-            }}/>
-        )
-    )}/>
-);
 
-
-
-export default PrivateRoute;
+export default FakeAuth;

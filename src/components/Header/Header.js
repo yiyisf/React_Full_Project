@@ -1,6 +1,11 @@
 import React, {Component} from "react";
 import {Dropdown, DropdownItem, DropdownMenu} from "reactstrap";
 import * as firebase from 'firebase';
+// import FakeAuth from '../../comm/FakeAuth';
+import {withRouter} from "react-router-dom";
+// import { BrowserRouter as router } from 'react-router-dom';
+import history from '../../comm/history';
+
 
 class Header extends Component {
 
@@ -42,10 +47,14 @@ class Header extends Component {
     handleLogout = () => {
         console.log('开始退出..');
         firebase.auth().signOut();
-
+        this.props.history.push('/login');
     };
 
+
+
   render() {
+      console.log("history");
+      console.log(this.props.history);
     return (
       <header className="app-header navbar">
         <button className="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button" onClick={this.mobileSidebarToggle}>&#9776;</button>
@@ -111,4 +120,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

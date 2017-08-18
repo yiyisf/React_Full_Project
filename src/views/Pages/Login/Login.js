@@ -16,37 +16,64 @@ console.log('login:' + fb.auth().currentUser);
 class Login extends Component {
 
     state = {
-        redirectToReferrer: !!(fb.auth().currentUser),
+        redirectToReferrer: false,
         already: false
     };
 
     componentDidMount() {
+        // console.log("登陆页面开始了...");
         this.firebaseListener = this.firebaseListener.bind(this);
-        console.log('componentDidMount');
-        if (fb.auth().currentUser) {
-            this.setState({redirectToReferrer: true});
-        }
-        console.log('componentDidMount 1....');
+        // fb.auth().onAuthStateChanged((user) => {
+        //     console.log('componentDidMount 2....');
+        //     if (user) {
+        //         console.log('用户登录了。。。');
+        //         if (!this.state.redirectToReferrer) {
+        //             this.setState({redirectToReferrer: true});
+        //         }
+        //     } else {
+        //         console.log('用户退出了。。。');
+        //         if (this.state.redirectToReferrer) {
+        //             this.setState({redirectToReferrer: false});
+        //         }
+        //         console.log('继续...');
+        //     }
+        //     console.log("redirect ?" + this.state.redirectToReferrer);
+        //     if(!this.state.redirectToReferrer){
+        //         this.setState({already: true});
+        //     }
+        // });
+        // console.log('componentDidMount');
+        // // if (fb.auth().currentUser) {
+        // //     this.setState({redirectToReferrer: true});
+        // // }
+        // console.log('componentDidMount 1....');
 
     }
 
     componentWillUnmount() {
         // this.firebaseListener = undefined;
+        // console.log("login will unmount");
+        // this.firebaseListener.remove();
+        // fb.auth().removeListener();
     }
 
     firebaseListener = fb.auth().onAuthStateChanged((user) => {
         console.log('componentDidMount 2....');
-        this.setState({already: true});
         if (user) {
+            this.setState({already: true});
             console.log('用户登录了。。。');
             if (!this.state.redirectToReferrer) {
                 this.setState({redirectToReferrer: true});
             }
         } else {
+            this.setState({already: false});
             console.log('用户退出了。。。');
             if (this.state.redirectToReferrer) {
                 this.setState({redirectToReferrer: false});
             }
+        }
+        if (!this.state.redirectToReferrer) {
+            this.setState({already: true});
         }
     });
 
@@ -62,6 +89,7 @@ class Login extends Component {
         fb.auth().signInWithEmailAndPassword(email, password).catch((e) => {
             console.error(e.message)
         });
+        // this.setState({redirectToReferrer: true});
     };
 
     render() {
@@ -79,13 +107,13 @@ class Login extends Component {
             return (
                 <Redirect to={from}/>
             )
-        }else if(!already){
+        } else if (!already) {
             return (
                 <div className="loading-bar .bar">
 
                 </div>
             );
-        }else {
+        } else {
             return (
                 <div className="app flex-row align-items-center">
                     <div className="container">
@@ -98,7 +126,8 @@ class Login extends Component {
                                             <p className="text-muted">登录您的账户</p>
                                             <div className="input-group mb-3">
                                                 <span className="input-group-addon"><i className="icon-user"></i></span>
-                                                <input id="email" type="text" className="form-control" placeholder="邮箱地址"/>
+                                                <input id="email" type="text" className="form-control"
+                                                       placeholder="邮箱地址"/>
                                             </div>
                                             <div className="input-group mb-4">
                                                 <span className="input-group-addon"><i className="icon-lock"></i></span>
@@ -122,9 +151,11 @@ class Login extends Component {
                                         <div className="card-block text-center">
                                             <div>
                                                 <h2>注册</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                    eiusmod
                                                     tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                <button type="button" className="btn btn-primary active mt-3">马上注册!</button>
+                                                <button type="button" className="btn btn-primary active mt-3">马上注册!
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
