@@ -53,8 +53,8 @@ class Header extends Component {
 
 
   render() {
-      console.log("history");
-      console.log(this.props.history);
+      // console.log("history");
+      // console.log(this.props.history);
     return (
       <header className="app-header navbar">
         <button className="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button" onClick={this.mobileSidebarToggle}>&#9776;</button>
@@ -86,8 +86,8 @@ class Header extends Component {
           <li className="nav-item">
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <button onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded={this.state.dropdownOpen}>
-                <img src={'img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com"/>
-                <span className="d-md-down-none">{firebase.auth().currentUser.email}</span>
+                <img src={'img/avatars/6.jpg'} className="img-avatar" alt={firebase.auth().currentUser.email}/>
+                <span className="d-md-down-none">{firebase.auth().currentUser.displayName}</span>
               </button>
 
               <DropdownMenu className="dropdown-menu-right">
