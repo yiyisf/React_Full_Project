@@ -5,7 +5,7 @@ import { FlatButton, Dialog } from 'material-ui';
 import {withRouter} from "react-router-dom";
 
 
-console.log('login:' + fb.auth().currentUser);
+// console.log('login:' + fb.auth().currentUser);
 // firebase.apps.forEach(function (app) {
 //     console.log(app.name);
 // });
@@ -22,12 +22,18 @@ class Login extends Component {
         redirectToReferrer: false,
         already: false,
         alertMessage: "",
-        alertOpen: false
+        alertOpen: false,
+        isRegister : false
     };
 
     componentDidMount() {
         // console.log("登陆页面开始了...");
         this.firebaseListener = this.firebaseListener.bind(this);
+        if (this.props.location.pathname === '/register') {
+            this.setState({
+                isRegister: true
+            });
+        }
         // fb.auth().onAuthStateChanged((user) => {
         //     console.log('componentDidMount 2....');
         //     if (user) {
@@ -66,13 +72,13 @@ class Login extends Component {
         console.log('componentDidMount 2....');
         if (user) {
             this.setState({already: true});
-            console.log('用户登录了。。。');
+            // console.log('用户登录了。。。');
             if (!this.state.redirectToReferrer) {
                 this.setState({redirectToReferrer: true});
             }
         } else {
             this.setState({already: false});
-            console.log('用户退出了。。。');
+            // console.log('用户退出了。。。');
             if (this.state.redirectToReferrer) {
                 this.setState({redirectToReferrer: false});
             }
@@ -95,7 +101,7 @@ class Login extends Component {
             return;
         }
 
-        console.log('开始登录' + email);
+        // console.log('开始登录' + email);
         // firebase.auth().signInAnonymously().catch(function (error) {
         //     console.log(error.code);
         //     console.log(error.message);
@@ -122,20 +128,12 @@ class Login extends Component {
     };
 
     render() {
-        // if(firebase.auth().currentUser){
-        //     this.setState({ redirectToReferrer: true })
-        // }else {
-        //     this.setState({ redirectToReferrer: false })
-        // }
-
-        const alertActions = [
-
-        ];
+        // const alertActions = [
+        //
+        // ];
 
         const {from} = this.props.location.state || {from: {pathname: '/'}};
         const {redirectToReferrer, already} = this.state;
-        console.log(redirectToReferrer);
-        console.log(from);
         if (this.state.redirectToReferrer) {
             return (
                 <Redirect to={from}/>
@@ -146,7 +144,7 @@ class Login extends Component {
 
                 </div>
             );
-        } else {
+        } else{
             return (
                 <div className="app flex-row align-items-center">
                     <div className="container">

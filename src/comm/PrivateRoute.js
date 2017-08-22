@@ -19,14 +19,14 @@ const FakeAuth = {
     }
 };
 
-console.log("fakeauth:" + FakeAuth.isAuthenticated);
+// console.log("fakeauth:" + FakeAuth.isAuthenticated);
 
 fb.auth().onAuthStateChanged(function (user) {
     if (user) {
-        console.log('用户登录了..');
+        // console.log('用户登录了..');
         FakeAuth.authenticate();
     } else {
-        console.log('用户退出了..');
+        // console.log('用户退出了..');
         FakeAuth.signout();
     }
 });
@@ -36,16 +36,23 @@ console.log(!!(fb.auth().currentUser));
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
         FakeAuth.isAuthenticated ? (
-            <Component {...props}/>
-        ) : (
-            <Redirect to={{
-                pathname: '/login',
-                state: {from: props.location}
-            }}/>
-        )
+                props.location.pathname === '/register' ? (
+                        <Redirect to={{
+                            pathname: '/',
+                            state: {from: props.location}
+                        }}/>
+                    ) : (<Component {...props}/>)
+            ) : (
+                props.location.pathname === '/register' ? (<Component {...props}/>) :
+                    (
+                        <Redirect to={{
+                            pathname: '/login',
+                            state: {from: props.location}
+                        }}/>
+                    )
+            )
     )}/>
 );
-
 
 
 export default PrivateRoute;

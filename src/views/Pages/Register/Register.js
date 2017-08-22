@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
+import fb from '../../../comm/config';
+import {withRouter} from "react-router-dom";
 
 class Register extends Component {
 
     submitRegister = () =>  {
-      let email = document.getElementById('email');
-      // let password =
-        
+
+      let email = document.getElementById('email').value;
+      let password = document.getElementById('password').value;
+      let confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (!email || !password ||!confirmPassword || (password!= confirmPassword)) {
+        alert("请检查输入...");
+        return;
+      }
+
+      fb.auth().createUserWithEmailAndPassword(email, password).then(() =>{
+        alert("注册成功！");
+        this.props.history.push('/login');
+      },
+          (e) =>{
+        console.log(e);
+        alert("注册失败:" + e.message);
+      });
+
     };
 
   render() {
@@ -52,4 +70,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);
