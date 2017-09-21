@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {Redirect} from "react-router-dom";
-import fb from '../../../comm/config';
-import { FlatButton, Dialog } from 'material-ui';
-import {withRouter} from "react-router-dom";
+import React, {Component} from "react";
+import {Redirect, withRouter} from "react-router-dom";
+import fb from "../../../comm/config";
+import {Dialog, Snackbar} from "material-ui";
 
 
 // console.log('login:' + fb.auth().currentUser);
@@ -23,6 +22,8 @@ class Login extends Component {
         already: false,
         alertMessage: "",
         alertOpen: false,
+        open: false,
+        errorMessage: "",
         isRegister : false
     };
 
@@ -113,7 +114,9 @@ class Login extends Component {
         fb.auth().signInWithEmailAndPassword(email, password).catch((e) => {
             // console.error(e.message);
             this.setState({
-                alertMessage: e.message
+                alertOpen:false,
+                open:true,
+                errorMessage: e.message
             });
         });
         // this.setState({redirectToReferrer: true});
@@ -123,15 +126,15 @@ class Login extends Component {
         this.setState({alertOpen: false, alertMessage:''});
     };
 
+    handleErrorClose = () => {
+        this.setState({open: false, errorMessage:''});
+    };
+
     handleRegister = () => {
         this.props.history.push('/register');
     };
 
     render() {
-        // const alertActions = [
-        //
-        // ];
-
         const {from} = this.props.location.state || {from: {pathname: '/'}};
         const {redirectToReferrer, already} = this.state;
         if (this.state.redirectToReferrer) {
@@ -197,13 +200,21 @@ class Login extends Component {
                     <div>
                         <Dialog
                             actions={[]}
-                            modal={false}
+                            modal={true}
                             open={this.state.alertOpen}
                             onRequestClose={this.handleAlertClose}
                         >
                             {this.state.alertMessage}
                         </Dialog>
                     </div>
+                    <Snackbar
+                        open={this.state.open}
+                        message={this.state.errorMessage}
+                        action="OK"
+                        autoHideDuration="5000"
+                        onActionTouchTap={this.handleErrorClose}
+                        onRequestClose={this.handleErrorClose}
+                    />
                 </div>
             );
         }
