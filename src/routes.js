@@ -11,6 +11,7 @@ const routes = {
     '/components/switches': 'Switches',
     '/components/tables': 'Tables',
     '/components/tabs': 'Tabs',
+    '/components/svgs': 'Svgs',
     '/icons': 'Icons',
     '/icons/font-awesome': 'Font Awesome',
     '/icons/simple-line-icons': 'Simple Line Icons',

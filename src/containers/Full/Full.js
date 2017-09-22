@@ -23,6 +23,7 @@ import Banks from '../../views/Components/Settings/Banks';
 import AllOrders from '../../views/Components/Orders/All';
 import fb from '../../comm/config';
 import OrderDetail from "../../views/Components/Orders/OrderDetail";
+import Svg from "../../views/Components/Svg/Svg";
 
 const messaging = fb.messaging();
 // if (firebase.apps.length < 1) {
@@ -173,6 +174,7 @@ class Full extends Component {
                                 <Route path="/components/switches" name="Swithces" component={Switches}/>
                                 <Route path="/components/tables" name="Tables" component={Tables}/>
                                 <Route path="/components/tabs" name="Tabs" component={Tabs}/>
+                                <Route path="/components/svgs" name="Svgs" component={Svg}/>
                                 <Route path="/icons/font-awesome" name="Font Awesome" component={FontAwesome}/>
                                 <Route path="/icons/simple-line-icons" name="Simple Line Icons"
                                        component={SimpleLineIcons}/>

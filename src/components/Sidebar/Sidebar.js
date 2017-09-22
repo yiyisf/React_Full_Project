@@ -54,6 +54,9 @@ class Sidebar extends Component {
                 <li className="nav-item">
                   <NavLink to={'/components/tabs'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> 标签</NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/svgs'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> SVG</NavLink>
+                </li>
               </ul>
             </li>
             <li className={this.activeRoute("/icons")}>
